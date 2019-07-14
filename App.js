@@ -7,6 +7,8 @@ import t from "tcomb-form-native";
 const Form = t.form.Form;
 import { LoginStruct, LoginOptions } from "./app/components/forms/testForm";
 
+import PreLoader from "./app/components/PreLoader";
+
 export default class App extends React.Component {
   constructor() {
     super();
@@ -45,7 +47,9 @@ export default class App extends React.Component {
 
   render() {
     const { testFormValue, testFormError } = this.state;
-    return (
+
+    return <PreLoader />;
+    /* return (
       <View style={styles.container}>
         <Form
           ref="formTest"
@@ -57,7 +61,7 @@ export default class App extends React.Component {
         <Button title="Login" onPress={this.sendFormText.bind(this)} />
         <Text style={styles.testFormErrorText}>{testFormError}</Text>
       </View>
-    );
+    ); */
   }
 }
 /* export default function App() {
