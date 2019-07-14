@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-elements";
+import { StyleSheet, View } from "react-native";
+import { Text, Button } from "react-native-elements";
 
 // Form configuration
 import t from "tcomb-form-native";
@@ -15,7 +15,8 @@ export default class App extends React.Component {
       testFormValue: {
         user: "",
         password: ""
-      }
+      },
+      testFormError: ""
     };
   }
 
@@ -31,13 +32,19 @@ export default class App extends React.Component {
     const validate = this.refs.formTest.getValue();
     if (validate) {
       console.log("Correcto");
+      this.setState({
+        testFormError: ""
+      });
     } else {
       console.log("Incorrecto");
+      this.setState({
+        testFormError: "Los campos marcados con * son obligatorios"
+      });
     }
   };
 
   render() {
-    const { testFormValue } = this.state;
+    const { testFormValue, testFormError } = this.state;
     return (
       <View style={styles.container}>
         <Form
@@ -48,6 +55,7 @@ export default class App extends React.Component {
           onChange={v => this.onChange(v)}
         />
         <Button title="Login" onPress={this.sendFormText.bind(this)} />
+        <Text style={styles.testFormErrorText}>{testFormError}</Text>
       </View>
     );
   }
@@ -72,5 +80,10 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     justifyContent: "center",
     padding: 40
+  },
+  testFormErrorText: {
+    color: "#F00",
+    textAlign: "center",
+    paddingTop: 30
   }
 });
