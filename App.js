@@ -18,7 +18,8 @@ export default class App extends React.Component {
         user: "",
         password: ""
       },
-      testFormError: ""
+      testFormError: "",
+      loaded: true
     };
   }
 
@@ -46,22 +47,30 @@ export default class App extends React.Component {
   };
 
   render() {
-    const { testFormValue, testFormError } = this.state;
+    const { loaded, testFormValue, testFormError } = this.state;
 
-    return <PreLoader />;
-    /* return (
-      <View style={styles.container}>
-        <Form
-          ref="formTest"
-          type={LoginStruct}
-          options={LoginOptions}
-          value={testFormValue}
-          onChange={v => this.onChange(v)}
-        />
-        <Button title="Login" onPress={this.sendFormText.bind(this)} />
-        <Text style={styles.testFormErrorText}>{testFormError}</Text>
-      </View>
-    ); */
+    if (loaded) {
+      setTimeout(() => {
+        this.setState({
+          loaded: false
+        });
+      }, 3000);
+      return <PreLoader />;
+    } else {
+      return (
+        <View style={styles.container}>
+          <Form
+            ref="formTest"
+            type={LoginStruct}
+            options={LoginOptions}
+            value={testFormValue}
+            onChange={v => this.onChange(v)}
+          />
+          <Button title="Login" onPress={this.sendFormText.bind(this)} />
+          <Text style={styles.testFormErrorText}>{testFormError}</Text>
+        </View>
+      );
+    }
   }
 }
 /* export default function App() {
